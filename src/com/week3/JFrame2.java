@@ -1,6 +1,10 @@
 package com.week3;
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JFrame;
 //창 만드는 메소드
 class A{
@@ -13,9 +17,11 @@ class A{
 	public void initDisplay(B b) {
 		int width  = b.i;
 		int height = b.j;
-		jf.setTitle(toString());
 		jf.setSize(width,height);
 		jf.setVisible(true);
+		jf.getContentPane().setBackground(Color.PINK);
+		jf.setFont(new Font("Arial", Font.BOLD, 20));
+		jf.setLayout(new BorderLayout());
 	}
 }
 //합으로 구하는 평균 메소드
