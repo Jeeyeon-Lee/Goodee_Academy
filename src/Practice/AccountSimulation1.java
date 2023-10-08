@@ -1,4 +1,4 @@
-package Practice;
+package practice;
 
 class Account1{
 	//선언부
