@@ -27,6 +27,7 @@ public class TestParam {
 		p.ival = 500;
 		tp.effectParam(p);
 		System.out.println("메인 ival : "+p.ival);
+		System.out.println("메인 ival : "+p.ival);
 		
 	}
 
