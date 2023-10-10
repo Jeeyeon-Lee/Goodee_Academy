@@ -29,7 +29,6 @@ public class TimeServer extends Thread {
 					try {
 						client.close();
 					} catch (Exception e2) {
-						// TODO: handle exception
 					}
 				}
 			}
@@ -37,14 +36,21 @@ public class TimeServer extends Thread {
 			// TODO: handle exception
 		}
 	}
-	//서버측에서 CalendarAPI 를 이용해 현재 시간 정보를 반환하는 메소드 설계한다
-	//반환타입과 리턴타입을 결정해 본다.- 파라미터는 필요없다. -리턴타입은 String한다.
+	/*
+	서버측에서 CalendarAPI를 이용해 현재 시간 정보를 반환하는 메소드를 설계한다
+	반환타입과 리턴타입 결정 -> 파라미터는 필요x(국제 표준시니까), 리턴타입은 string으로 해서 JLabel에 찍자
+	Calendar(TimeZone zone, Locale aLocale)
+	Constructs a calendar with the specified time zone and locale.
+	field - static int
+	*/ 
 	public String getTime() {
 		Calendar cal = Calendar.getInstance();
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 		int min = cal.get(Calendar.MINUTE);
 		int sec = cal.get(Calendar.SECOND);
-		return hour + ":" + min + ":"+sec;
+		return (hour < 10 ? "0"+hour : ""+hour) +":" +
+			   (min < 10 ? "0"+min : ""+min) +":" +
+			   (sec < 10 ? "0"+sec : ""+sec);
 	}
 	public static void main(String[] args) {
 		int port = 5000;
@@ -65,6 +71,7 @@ public class TimeServer extends Thread {
 		while(true) {
 			try {
 				client = server.accept();
+				//클라이언트가 들어오면
 				if(client !=null) {
 					//System.out.println(client);
 				}
