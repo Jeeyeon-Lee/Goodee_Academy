@@ -11,6 +11,7 @@ public class DuckSimulation {
 		myDuck.swimming();
 		myDuck = new WoodDuck();
 		myDuck.performeFly();
+		myDuck.performQuack();
 		myDuck.swimming();
 		
 	}

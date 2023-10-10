@@ -6,12 +6,27 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
 
+//메인스레드와 통신객체 사이에 경합이 벌어질 수 있어서 굳이 Thread를 상속받음.
 public class TimeServer extends Thread {
-	//아래 소켓은 서버소켓에 접속해온 클라이언트의 소켓정보를 쥐고 있다.
+	//생성자
+	//아래 소켓은 서버소켓에 접속해온 클라이언트의 소켓정보를 쥐고 있다. 
+	//TimeClient에서 호출될 때 결정되므로 일단 null!! 
 	Socket client = null;
-	public TimeServer(Socket client) {
-		this.client = client;
+	 /*이 부분이 학습 필요한 부분 */
+	public TimeServer(Socket client) { //getTime에서 나온 정보를 소켓을 통해 보냄. 
+		this.client = client; 
 	}
+	public String getTime() {
+		Calendar cal = Calendar.getInstance();
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int min = cal.get(Calendar.MINUTE);
+		int sec = cal.get(Calendar.SECOND);
+		//10보다 작은 숫자는 앞에 0을 붙여서 표시 -> String으로 작업하기 위해서
+		return (hour < 10 ? "0" + hour : "" + hour) + ":" +
+		(min < 10 ? "0" + min : "" + min)  +	":" +
+		(sec < 10 ? "0" + sec : "" + sec) ;
+	}
+	//오버라이드 - 콜백메소드-run 함수의 오버라이드
 	@Override
 	public void run() {
 		try {
@@ -22,18 +37,17 @@ public class TimeServer extends Thread {
 				System.out.println("server run호출");
 				oos.writeObject(getTime());
 				try {
-					sleep(1000);
+					sleep(1000); //1초
 				} catch (Exception e) {
 					// TODO: handle exception
-				} finally {
-					try {
-						client.close();
-					} catch (Exception e2) {
-					}
-				}
+				} 
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			try {
+				client.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
 		}
 	}
 	/*
@@ -43,16 +57,8 @@ public class TimeServer extends Thread {
 	Constructs a calendar with the specified time zone and locale.
 	field - static int
 	*/ 
-	public String getTime() {
-		Calendar cal = Calendar.getInstance();
-		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		int min = cal.get(Calendar.MINUTE);
-		int sec = cal.get(Calendar.SECOND);
-		return (hour < 10 ? "0"+hour : ""+hour) +":" +
-			   (min < 10 ? "0"+min : ""+min) +":" +
-			   (sec < 10 ? "0"+sec : ""+sec);
-	}
 	public static void main(String[] args) {
+		//선언과 생성 나누는 이유는 네트워크는 나눠서 처리해야함. 
 		int port = 5000;
 		ServerSocket server = null;
 		Socket client = null;
@@ -70,12 +76,15 @@ public class TimeServer extends Thread {
 		System.out.println("TimeServer started successfully...");
 		while(true) {
 			try {
+				//클라이언트 소켓이 접속해 올 때 까진 기다리고 있음-wating 상태, 다음코드 진행x
 				client = server.accept();
 				//클라이언트가 들어오면
 				if(client !=null) {
-					//System.out.println(client);
+					//System.out.println(client); 
 				}
 				System.out.println("New client connected...");
+				//생성자 호출, 전변으로 선언된 클라이언트가 76번에서 실체가 생김
+				//생성자 안에 inputStream, OutputStream 생성함
 				TimeServer ts = new TimeServer(client);
 				ts.start();
 				System.out.println("New TimeServer Thread started...");
@@ -93,3 +102,4 @@ public class TimeServer extends Thread {
 
 
 }//end of TimeServer
+

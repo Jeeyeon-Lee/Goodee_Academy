@@ -14,4 +14,7 @@ public abstract class Duck {
 	public void swimming() {
 		System.out.println("모든 오리는 물 위에 뜬다.");
 	}
+	public void performQuack() {
+		quackBehavior.quack();
+	}
 }
