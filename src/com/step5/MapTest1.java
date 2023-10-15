@@ -14,7 +14,7 @@ public class MapTest1 {
 		map.put("loc","부산");
 		//검색 get, continsKey
 		System.out.println(map.get("10"));                   //null 10이라는 key의 value는 뭐니?nope 10은 value야
-		System.out.println(map.get("loc"));                   //null loc이라는 key의 value는 뭐니? 부산이요
+		System.out.println(map.get("loc"));                   //부산 loc이라는 key의 value는 뭐니? 부산이요
 		System.out.println(map.containsKey("deptno")); //true
 		System.out.println(map.containsKey("DEPTNO")); //false - 대소문자 구분하는 자바
 		//갖고있는지 확인해보기
