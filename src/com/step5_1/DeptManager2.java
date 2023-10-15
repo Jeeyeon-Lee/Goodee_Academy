@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -38,7 +40,9 @@ public class DeptManager2 extends JFrame implements ActionListener{
 	JButton jbtnDel        = new JButton("행삭제");
 	JButton jbtnExit        = new JButton("종료");
 	/*생성자*/
-
+	public DeptManager2() {
+		initDisplay();
+	}
 	/*정의메소드*/
 	//화면처리 & 액션리스너 추가
 	public void initDisplay() {
@@ -101,28 +105,44 @@ public class DeptManager2 extends JFrame implements ActionListener{
 			//deptList에 저장되어있는 각 Map 요소를 가져와라
 			//
 			for(int i=0;i>deptList.size();i++) {
-				
+				Map<String, Object> map = deptList.get(i);
+				//Vector는 테이블 모델(dtm_dept)에 데이터를 추가하기 위해 사용-크기가 조정되는 배열과 유사한 기능!
+				Vector<Object> v = new Vector<>();
+				//Vector add(int index, Object element)
+				//Map get(Object key)
+				v.add(0, map.get("DEPTNO"));
+				v.add(1,map.get("DNAME")); //벡터에 초기화
+				v.add(2,map.get("LOC")); //벡터에 초기화
+				dtm_dept.addRow(v);
 			}
 		}
 		//JButton jbtnInsert    = new JButton("입력");
-		else if(obj == jbtn) {
-			System.out.println("");
+		else if(obj == jbtnInsert) {
+			System.out.println("입력 버튼 클릭");
+			//Vector로 추가하는 것 필요
+			List<Object> addRow = new Vector<>();
+			dtm_dept.addRow((Vector<?>) addRow);
+			
 		}
 		//JButton jbtnDelete    = new JButton("삭제");  //이 때 새로고침
-		else if(obj == jbtn) {
-			System.out.println("");
+		else if(obj == jbtnDelete) {
+			System.out.println("삭제 버튼 클릭");
 		}
 		//JButton jbtnAdd       = new JButton("행추가");
-		else if(obj == jbtn) {
-			System.out.println("");
+		else if(obj == jbtnAdd) {
+			System.out.println("행추가 버튼 클릭");
 		}
 		//JButton jbtnDel        = new JButton("행삭제");
-		else if(obj == jbtn) {
-			System.out.println("");
+		else if(obj == jbtnDel) {
+			System.out.println("행삭제 버튼 클릭");
 		}
 		//JButton jbtnExit        = new JButton("종료");
-		else if(obj == jbtn) {
-			System.out.println("");
+		else if(obj == jbtnExit) {
+			System.out.println("종료 버튼 클릭");
+		    int option = JOptionPane.showConfirmDialog(null, "프로그램을 종료하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+		    if (option == JOptionPane.YES_OPTION) {
+		    	System.exit(0);
+		    }
 		}
 	}
 
