@@ -4,7 +4,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -18,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class DeptManager2 extends JFrame implements ActionListener {
 	/*선언부*/
 	//deptList라는 배열정보담을 List 생성(참조 Map -> key, value의 비교 가능해짐)
-	List<DeptDTO> deptList = new ArrayList<>();
+	List<Map<String,	Object>> deptList = new ArrayList<>();
 	String header[] = {"부서번호","부서명","지역"};
 	String datas[][] = new String[3][3]; //데이터는 아직x, 후처리
 	//DefaultTableModel vector의 값을 담는 테이블을 관리하는 패키지 ->header과 데이터를 담기
@@ -35,8 +37,8 @@ public class DeptManager2 extends JFrame implements ActionListener {
 	JButton jbtnExit        = new JButton("종료");
 	/*생성자*/
 	public DeptManager2() {
-		getDeptList();
 		initDisplay();
+		getDeptList();
 	}
 	/*정의메소드*/
 	//화면처리부 & 액션 삽입부
@@ -60,13 +62,23 @@ public class DeptManager2 extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 	//입력되는 값을 리스트로 더하는 메소드
-	public List<DeptDTO> getDeptList() {
-		DeptDTO dept = new DeptDTO(10, "영업부", "부산");
-		deptList.add(dept);
-		dept = new DeptDTO(20,"개발부","대전");
-		deptList.add(dept);
-		dept = new DeptDTO(30, "운영부","인천");
-		deptList.add(dept);
+	public List<Map<String, Object>> getDeptList() { //Map을 참조하는 List를 리턴타입으로 두는 메소드
+		//Map도 생성 필요
+		Map<String, Object> map = new HashMap<>();
+		map.put("DEPTNO",10);          //대문자인 이유, 토드에서는 대문자로 사용하고 있음. 맞춰서 보내줘야함.
+		map.put("DNAME", "영업부");
+		map.put("LOC", "부산");
+		deptList.add(map);
+		map = new HashMap<>();//복사본
+		map.put("DEPTNO", 20);
+		map.put("DNAME", "개발부");
+		map.put("LOC", "대구");
+		deptList.add(map);
+		map = new HashMap<>();//복사본
+		map.put("DEPTNO", 30);
+		map.put("DNAME", "인사부");
+		map.put("LOC", "서울");
+		deptList.add(map);
 		return deptList;
 	}
 	/*메인메소드*/
@@ -81,17 +93,20 @@ public class DeptManager2 extends JFrame implements ActionListener {
 		/*조회하기*/
 		if(obj == jbtnSelect) {
 			System.out.println("조회버튼 클릭");
+			/*getRowCount는 실제 데이터의 로우 수를 반환함.*/
 			while(dtm_dept.getRowCount()>0) {       //테이블의 줄이 0 이상이면(일단 출력이 된 화면이라면)
 				dtm_dept.removeRow(0);              //0번째 로우 삭제!
 			}
 			for(int i=0; i<deptList.size();i++) {
-				DeptDTO rdept = deptList.get(i);
+				Map<String, Object> map = deptList.get(i);
 				//Vector 클래스는 확장 가능한 객체 배열을 구현
 				Vector<Object> v = new Vector<>();
 				//이 Vector의 지정된 위치에 지정된 요소를 삽입
-				v.add(0,rdept.getDeptno());
-				v.add(1,rdept.getDname());
-				v.add(2,rdept.getLoc());
+				//Vector.add(int index, Object element)
+				//여기서 Object element에 들어가야하는 값은 Map의 검색 메소드인 get(Object key) 활용 -> 타입은 위에서 String으로 정해둠.
+				v.add(0,map.get("DEPTNO"));
+				v.add(1,map.get("DNAME"));
+				v.add(2,map.get("LOC"));
 				//addRow 위에 삽입된 v를 table 맨 아래줄로 추가함. 
 				dtm_dept.addRow(v);
 			}
@@ -109,10 +124,10 @@ public class DeptManager2 extends JFrame implements ActionListener {
 			}
 			else {//index가 선택되었을 때
 				System.out.println(index);//선택한 index의 번호는?
-				DeptDTO rdept = deptList.remove(index); //DTo의 deptList에서 해당 index 삭제(remove)
-				System.out.println(rdept+", "+rdept.getDeptno()+", "+rdept.getDname()+", "+rdept.getLoc());//삭제된 것 불어오기 
+				Map<String, Object> map = deptList.remove(index); //DTo의 deptList에서 해당 index 삭제(remove)
+				System.out.println(map+", "+map.get("DEPTNO")+", "+map.get("DNAME")+", "+map.get("LOC"));//삭제된 것 불어오기 
 				//삭제 성공했니??(이런 조건들이 빈틈없는 코드를 완성함!!
-				if(rdept!=null) {//삭제된 rdept가 null값이 아니니? 그럼 삭제된거
+				if(map!=null) {//삭제된 map가 null값이 아니니? 그럼 삭제된거
 					JOptionPane.showMessageDialog(this, "삭제 성공 하였습니다.", "Info", JOptionPane.INFORMATION_MESSAGE);
 					refreshData(); //새로고침 메소드 실행
 				}
