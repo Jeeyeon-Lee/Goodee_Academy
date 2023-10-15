@@ -127,22 +127,64 @@ public class DeptManager2 extends JFrame implements ActionListener{
 		//JButton jbtnDelete    = new JButton("삭제");  //이 때 새로고침
 		else if(obj == jbtnDelete) {
 			System.out.println("삭제 버튼 클릭");
+			int index = jt_dept.getSelectedRow(); //선택한 행의 번호를 index
+			if(index<0) { //안눌렸다면?
+				JOptionPane.showConfirmDialog(this, "삭제할 데이터를 선택하세요", "Info", JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}
+			else {
+				System.out.println(index);//선택한 인덱스의 행번호 출력
+				//그 인덱스 번호를 리스트에서 삭제 List.remove(int index)
+				Map<String, Object> map = deptList.remove(index);
+				//삭제된 내용 출력 검색 Map.get(Object key)
+				System.out.println(map+", "+map.get("DEPTNO")+", "+ map.get("DNAME")+", "+map.get("LOC"));
+				//삭제 되었나요??
+				if(map!=null) {
+					JOptionPane.showMessageDialog(this, "삭제 성공 하셨습니다..","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+					refreshData(); //새로고침 메소드 호출
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "삭제 실패하셨습니다.","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+				}
+			}
 		}
 		//JButton jbtnAdd       = new JButton("행추가");
 		else if(obj == jbtnAdd) {
 			System.out.println("행추가 버튼 클릭");
+			//행추가 방법 1. Vector 사용
+			Vector<Object> addRow = new Vector<>();
+			//dept에 줄 생성하면서 vector로 자료에도 넣기
+			dtm_dept.addRow(addRow);
+			//행추가 방법 2. 1차 배열 사용
+//			Object addRow2[] = new Object[3];
+//			dtm_dept.addRow(addRow2);
+			
 		}
 		//JButton jbtnDel        = new JButton("행삭제");
 		else if(obj == jbtnDel) {
 			System.out.println("행삭제 버튼 클릭");
+//			//한줄도 안남으면 멈춰야지 if로!! 
+			int index = jt_dept.getSelectedRow(); //사용자가 선택한 로우의 인덱스값을 반환하기
+			if(index<0) {  //아무것도 선택안했을 때, 삭제할 데이터 선택하라고 하기
+				JOptionPane.showMessageDialog(this, "삭제할 행을 선택해주세요","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+				return;
+			}else {
+				JOptionPane.showMessageDialog(this, "삭제되었습니다","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+				dtm_dept.removeRow(index);
+			}
 		}
 		//JButton jbtnExit        = new JButton("종료");
 		else if(obj == jbtnExit) {
 			System.out.println("종료 버튼 클릭");
-		    int option = JOptionPane.showConfirmDialog(null, "프로그램을 종료하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+		    int option = JOptionPane.showConfirmDialog(this, "프로그램을 종료하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 		    if (option == JOptionPane.YES_OPTION) {
 		    	System.exit(0);
 		    }
+		}
+	}
+	public void refreshData() {
+		while(dtm_dept.getRowCount()>0) {       //테이블의 줄이 0 이상이면(일단 출력이 된 화면이라면)
+			dtm_dept.removeRow(0);                   //0번째 로우를 삭제함. 왜? 로우가 삭제될 때 마다 dtm의 로우수가 줄어든다. 
 		}
 	}
 
