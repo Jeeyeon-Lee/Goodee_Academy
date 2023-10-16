@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 class Emp1{
 	/*선언부*/
@@ -52,11 +52,9 @@ public class AddList {
 		map.put("dname", "ACCOUNTING");
 		list.add(map); //List에 누적을 시켜줘야  n번째로 계속 생성됨 
 		System.out.println(list);    //list 형식
-		Gson g = new Gson();   // Gson import하기 위한 과정 거치는 것 필요(노션 참고) 
-		String temp = g.toJson(list);
-		System.out.println(temp);     //json 형식으로 변환 완료 -> 브라우저 출력시 연동됨?! 아름답게 출력? 
-	}
+//		Gson g = new Gson();   // Gson import하기 위한 과정 거치는 것 필요(노션 참고) 
+//		String temp = g.toJson(list);
+//		System.out.println(temp);     //json 형식으로 변환 완료 -> 브라우저 출력시 연동됨?! 아름답게 출력? 
 
 	}
-
 }
