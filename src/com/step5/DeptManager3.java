@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -131,31 +132,21 @@ public class DeptManager3 extends JFrame implements ActionListener {
 		System.out.println("actionPerformed 호출은 반드시 addactionLister가 필요");
 		Object obj = e.getSource();
 		//버튼이 눌렸을 때의 이벤트 입력
-		/*조회하기*/
-		if(obj == jbtnSelect) {     //너 조회눌렀어?
-			System.out.println("조회버튼 클릭");        //"로그" 어디까지 출력되고 있는지, 이력을 확인하는 용
-//			List<DeptDTO> list = new ArrayList<>();  //이전에 사용했던 생성 이제는 리스트는 DB로 가져올거니까
-			List<DeptDTO> list =  getDTOList();
-			/*getRowCount는 실제 데이터의 로우 수를 반환함.*/
-			while(dtm_dept.getRowCount()>0) {       //테이블의 줄이 0 이상이면(일단 출력이 된 화면이라면)
-				dtm_dept.removeRow(0);              //0번째 로우 삭제!
-			}
-			for(int i=0; i<list.size();i++) {
+		/*조회하기 List 버전*/
+		if(obj == jbtnSelect) {                               //너 조회눌렀어?
+			System.out.println("조회 버튼 클릭");
+			List<DeptDTO> list = getDTOList();
+			while(dtm_dept.getRowCount()>0)
+				dtm_dept.removeRow(0);
+			for(int i=0;i<list.size();i++) {
 				DeptDTO dept = list.get(i);
-				//Vector 클래스는 확장 가능한 객체 배열을 구현
-				Vector<Object> v = new Vector<>();
-				//이 Vector의 지정된 위치에 지정된 요소를 삽입
-				//Vector.add(int index, Object element)
-				//여기서 Object element에 들어가야하는 값은 Map의 검색 메소드인 get(Object key) 활용 -> 타입은 위에서 String으로 정해둠.
-				v.add(0,dept.getDeptno());
-				v.add(1,dept.getDname()); //벡터에 초기화
-				v.add(2,dept.getLoc()); //벡터에 초기화
-				//addRow 위에 삽입된 v를 table 맨 아래줄로 추가함. 
-				dtm_dept.addRow(v);
+				Vector<Object> v = new Vector<Object>();
+				v.add(1, dept.getDeptno());
+				v.add(2, dept.getDname());
+				v.add(3, dept.getLoc());
+				list.add(dept);
 			}
-		}	
 		}
-		
 		/*삭제하기*/
 		else if(obj==jbtnDelete) { //삭제를 눌렀어?
 			System.out.println("삭제버튼 클릭");
