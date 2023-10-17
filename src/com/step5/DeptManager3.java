@@ -74,24 +74,24 @@ public class DeptManager3 extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}	
 	//리스트, 맵 활용하여 새로 자료구조에 더하는 메소드//////////////////////////////////////////////////////////////
-	public List<Map<String, Object>> getDeptList() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("DEPTNO",10);          //대문자인 이유, 토드에서는 대문자로 사용하고 있음. 맞춰서 보내줘야함.
-		map.put("DNAME", "영업부");
-		map.put("LOC", "부산");
-		deptList.add(map);
-		map = new HashMap<>();//복사본
-		map.put("DEPTNO", 20);
-		map.put("DNAME", "개발부");
-		map.put("LOC", "대구");
-		deptList.add(map);
-		map = new HashMap<>();//복사본
-		map.put("DEPTNO", 30);
-		map.put("DNAME", "인사부");
-		map.put("LOC", "서울");
-		deptList.add(map);
-		return deptList;
-	}
+//	public List<Map<String, Object>> getDeptList() {
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("DEPTNO",10);          //대문자인 이유, 토드에서는 대문자로 사용하고 있음. 맞춰서 보내줘야함.
+//		map.put("DNAME", "영업부");
+//		map.put("LOC", "부산");
+//		deptList.add(map);
+//		map = new HashMap<>();//복사본
+//		map.put("DEPTNO", 20);
+//		map.put("DNAME", "개발부");
+//		map.put("LOC", "대구");
+//		deptList.add(map);
+//		map = new HashMap<>();//복사본
+//		map.put("DEPTNO", 30);
+//		map.put("DNAME", "인사부");
+//		map.put("LOC", "서울");
+//		deptList.add(map);
+//		return deptList;
+//	}
 	//서버연동하여 리스트 더하는 메소드(getConnection)////////////////////////////////////////////////////////////////////////////////////
 	public List<DeptDTO> getDTOList() {
 		System.out.println("제네릭 타입을 getter/setter로 처리할 때");
@@ -121,6 +121,40 @@ public class DeptManager3 extends JFrame implements ActionListener {
 		}
 		return list;
 	}
+	public List<Map<String, Object>> getMapList() {  //2번째로 연습! Map 두 개 이상 조인할 때 유용, 이것으로 많이 연습 필요!
+		System.out.println("제네릭 타입을 Map으로 처리할 때");
+		List<Map<String, Object>> list = new ArrayList<>();
+		//StringBuffer는 스레드 안전, StringBuilder 불안전, 인터셉트가능 but, 지금은 로컬이니까 괜찮음. 
+		//String과 비교할 때 하나로 관리 가능-메모리에 대한 이익 있음.
+		StringBuilder sql = new StringBuilder(); //append는 옆으로 붙는 것 가능
+		sql.append("SELECT empno, ename, sal, dname   ");
+		sql.append("FROM emp, dept                   ");
+		sql.append("WHERE emp.deptno = dept.deptno  ");
+		try {
+			con = dbMGR.getConnection();
+			pstmt = con.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			Map<String, Object> map = null;
+			while(rs.next()) {
+				map = new HashMap<>();
+				map.put("empno", rs.getInt("empno"));
+				map.put("ename", rs.getString("ename"));
+				map.put("sal", rs.getInt("sal"));
+				map.put("dname", rs.getString("dname"));
+				//list 더하기
+				list.add(map);
+			}
+			System.out.println(map);
+			//예외처리 추가 필요
+		}catch (SQLException se) {
+			System.out.println(se.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
+
 	/*메인메소드*/
 	public static void main(String[] args) {
 		JFrame.setDefaultLookAndFeelDecorated(true); //첫 MVC패턴을 사용했던 swing에서 제공되는 창의 형태!
