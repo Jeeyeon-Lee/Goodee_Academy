@@ -6,12 +6,14 @@ import java.net.Socket;
 import java.util.StringTokenizer;
 
 public class TalkServerThread extends Thread {
+	/*선언부*/
 	public TalkServer ts = null;
 	Socket client = null;
 	ObjectOutputStream oos = null;
 	ObjectInputStream ois = null;
 	String chatName = null;//현재 서버에 입장한 클라이언트 스레드 닉네임 저장
-	public TalkServerThread(TalkServer ts) {
+	/*생성자*/
+	public TalkServerThread(TalkServer ts) { 
 		this.ts = ts;
 		this.client = ts.socket;
 		try {
@@ -24,7 +26,7 @@ public class TalkServerThread extends Thread {
 			chatName = st.nextToken();
 			ts.jta_log.append(chatName+"님이 입장하였습니다.\n");
 			for(TalkServerThread tst:ts.globalList) {
-			//이전에 입장해 있는 친구들 정보 받아내기
+				//이전에 입장해 있는 친구들 정보 받아내기
 				//String currentName = tst.chatName;
 				this.send(100+"#"+tst.chatName);
 			}
@@ -35,6 +37,7 @@ public class TalkServerThread extends Thread {
 			System.out.println(e.toString());
 		}
 	}
+	/*정의메소드*/
 	//현재 입장해 있는 친구들 모두에게 메시지 전송하기 구현
 	public void broadCasting(String msg) {
 		for(TalkServerThread tst:ts.globalList) {
@@ -49,6 +52,7 @@ public class TalkServerThread extends Thread {
 			e.printStackTrace();
 		}
 	}
+	@Override
 	public void run() {
 		String msg = null;
 		boolean isStop = false;
@@ -100,3 +104,4 @@ public class TalkServerThread extends Thread {
 		}
 	}/////////////////////////end of run
 }
+

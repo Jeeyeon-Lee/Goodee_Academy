@@ -15,6 +15,5 @@ public class ProtocolTest {
 			String s = (String)st.nextToken();
 			System.out.println(s);
 		}
-		
 	}
 }

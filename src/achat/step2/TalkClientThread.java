@@ -4,13 +4,19 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 public class TalkClientThread extends Thread {
+	/*선언부*/
 	TalkClient tc = null;
+	/*생성자*/
 	public TalkClientThread(TalkClient tc) {
 		this.tc = tc;
 	}
+	/*정의메소드*/
+
+	/*메인메소드*/
 	/*
 	 * 서버에서 말한 내용을 들어봅시다.
 	 */
+	@Override
 	public void run() {
 		boolean isStop = false;
 		while(!isStop) {
