@@ -45,9 +45,9 @@ public class ChatServer extends Thread {
 				jta_log.append("client info:"+socket+"\n");			
 				//아래에서 this는 ChatServer가리킨다
 				System.out.println(this);
-				ChatServerThread tst = new ChatServerThread(this);
+//				ChatServerThread tst = new ChatServerThread(this);
+				Thread tst = new ChatServerThread(this); //다형성이 있는 유형으로 많이 사용됨. 
 				tst.start();//ChatServerThread의 run호출된다.
-				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
