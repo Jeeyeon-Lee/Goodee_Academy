@@ -34,14 +34,13 @@ public class ChatServer extends Thread {
 	@Override
 	public void run() {
 		globalList = new Vector<ChatServerThread>(); //vector로 하는 이유? 멀티스레드에 용이
-		jta_log.append("Server Ready......\n"); //새로 들어올 때 로그 부분에 붙이기
 		boolean isStop = false;
 		try {
 			server = new ServerSocket(3002);
 			jta_log.append("Server Ready.........\n");
 			while(!isStop) {
 				//서버소켓에 접속해온 사용자의 소켓정보를 담는다.
-				//socket = server.accept();
+				socket = server.accept();
 				jta_log.append("client info:"+socket+"\n");			
 				//아래에서 this는 ChatServer가리킨다
 				System.out.println(this);
@@ -67,7 +66,7 @@ public class ChatServer extends Thread {
 	public static void main(String[] args) {
 		ChatServer cs = new ChatServer();
 		System.out.println(cs);
-		cs.initDisplay();
 		cs.start();           //run 메소드 실행
+		cs.initDisplay();
 	}
 }

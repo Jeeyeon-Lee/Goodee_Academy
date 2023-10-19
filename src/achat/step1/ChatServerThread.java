@@ -22,7 +22,6 @@ public class ChatServerThread extends Thread {
 			oos = new ObjectOutputStream(client.getOutputStream()); //ct에게 들은 것을 아웃
 			ois = new ObjectInputStream(client.getInputStream());//듣기
 			String msg = (String)ois.readObject(); //여기서 메시지는 클라이언트에게 들은 내용(즉, ct가 말한 그 메시지)
-			cs.jta_log.append(msg+"\n");//로그를 남김
 			StringTokenizer st = new StringTokenizer(msg,"|");
 			//"200|kiwi|tomato|오늘 스터디할까?" 라면?? 각 말하기의 구현 (프로토콜 설계 필요->어디서 사용? CC)
 			st.nextToken(); // 200
@@ -42,13 +41,6 @@ public class ChatServerThread extends Thread {
 			this.broadCasting(msg); //이 모두에게 msg를 보냄 
 		} catch (Exception e) {
 			e.getStackTrace();
-		}
-	}
-	public void send(String msg) {
-		try {
-			oos.writeObject(msg);
-		} catch (Exception e) {
-			e.printStackTrace();//stack에 쌓여 있는 로그 히스토리를 출력함
 		}
 	}
 
@@ -95,5 +87,12 @@ public class ChatServerThread extends Thread {
 			//클라이언트 창에 써지는 메시지 보내기 oos
 			cst.send(message);
 		}	
+	}
+	public void send(String msg) {
+		try {
+			oos.writeObject(msg);
+		} catch (Exception e) {
+			e.printStackTrace();//stack에 쌓여 있는 로그 히스토리를 출력함
+		}
 	}
 }
