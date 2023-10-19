@@ -69,6 +69,7 @@ public class ChatClient extends JFrame implements ActionListener {
 	}	
 	//화면구현 메소드
 	public void initDisplay() {//키위(양파|토마토)님의 창- 전변으로 하나?아님 지변으로 할까?
+		jtf_msg.addActionListener(this);
 		//사용자의 닉네임 받기
 		nickName = JOptionPane.showInputDialog("닉네임을 입력하세요.");
 		this.setLayout(new GridLayout(1,2));
@@ -102,13 +103,24 @@ public class ChatClient extends JFrame implements ActionListener {
 
 	/*메인메소드*/
 	public static void main(String[] args) {
-
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		ChatClient cc = new ChatClient();
+		cc.initDisplay();
+		cc.init();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//말하기 구현 - > oos.writeObject("200|kiwi|tomato|오늘 스터디할까?");//프로토콜설계
-		
+		Object obj = e.getSource();
+		String msg = jtf_msg.getText();
+		if(jtf_msg == obj) {
+			try {
+				oos.writeObject(200+"|"+nickName+"|"+msg);
+				jtf_msg.setText("");//다시 비워주기
+			} catch (Exception e2) {
+			}
+		}
 	}
 
 }

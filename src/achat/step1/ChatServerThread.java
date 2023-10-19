@@ -54,15 +54,46 @@ public class ChatServerThread extends Thread {
 
 	/*정의메소드*/
 	@Override
-	public void run() {
-		System.out.println("ChatServerThread run 호출");
-		// TODO Auto-generated method stub
-		super.run();
+	public void run() { //로그관리?? 
+		cs.jta_log.append("ChatServerThread 의 run호출"+"\n");
+		boolean isStop = false;
+		String msg = null; //msg는 ct가 입력한 메시지
+		try {
+			start:
+				while(!isStop) { //멈출때까지 한다
+ 					msg = (String)ois.readObject();
+					cs.jta_log.append(msg+"\n");
+					//로그가 append될때마다 스크롤바가 현재 문자열의 위치를 자동으로 인식해서 이동처리
+					cs.jta_log.setCaretPosition(cs.jta_log.getDocument().getLength());
+					//빈값을 줄 수도 있으니 if문 추가!
+					StringTokenizer st = null;
+					int protocol = 0;
+					if(msg != null) { //null이 아니면
+						st = new StringTokenizer(msg, "|");
+						protocol = Integer.parseInt(st.nextToken()); //|로 나뉜 st의 다음 토큰
+					}
+					switch (protocol) {
+					case 200: {
+						cs.jta_log.append("ChatServerThread : 200번 청취완료");
+						String nickName = st.nextToken();
+						String messege = st.nextToken();
+						broadCasting(200+"|"+nickName+"|"+messege);//oos.writeObject
+					}break;
+					case 500: {
+						
+					}break start;
+					}
+				}
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
 	}
 	//메시지 발송 메소드
 	public void broadCasting(String message) {
-		for(int i=0;i<cs.globalList.size();i++) {
+//		for(int i=0;i<cs.globalList.size();i++) {     //이거보단 아래로 하는 것이 정확
+		for(ChatServerThread cst : cs.globalList) {
 			//클라이언트 창에 써지는 메시지 보내기 oos
+			cst.send(message);
 		}	
 	}
 }
