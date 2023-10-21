@@ -13,7 +13,6 @@ public class MyCalcLogic {
 	public MyCalcLogic(MyCalcTemplate myCalcTemplate) {
 		this.myCalcTemplate = myCalcTemplate;
 	}
-
 	/*////////////////////////////////////////////////////////////////////////////////////////////////////
 	 * 사칙연산을 구현하기
 	 * v1 - 연산자가 눌리기 전까지 입력된 숫자 묶음

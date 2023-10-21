@@ -59,5 +59,4 @@ public class MyCalcEvent implements ActionListener {
 			myCalcView.jtf_display.setText("");
 	}
 	}
-
 }

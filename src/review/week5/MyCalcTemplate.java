@@ -44,5 +44,4 @@ public class MyCalcTemplate{
 	public static void main(String[] args) {
 		new MyCalcTemplate();
 	}
-
 }
