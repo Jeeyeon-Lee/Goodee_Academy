@@ -18,7 +18,6 @@ public class MyCalcView {
 	JButton jbtnClear = new JButton("C");
 	MyCalcEvent mcEvent = new MyCalcEvent(this);
 	MyCalcLogic mcLogic = new MyCalcLogic(this);
-	
 	//생성자
 	public MyCalcView() {
 		initDisplay();
@@ -46,5 +45,4 @@ public class MyCalcView {
 	public static void main(String[] args) {
 		MyCalcView mcView = new MyCalcView();
 	}
-
 }

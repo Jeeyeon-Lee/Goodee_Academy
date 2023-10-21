@@ -30,5 +30,4 @@ public class AccountSimulation {
 		ac.hap1();
 		ac.hap2(5,4);
 	}
-
 }
