@@ -49,7 +49,6 @@ public class TimeServer extends Thread {
 			// TODO: handle exception
 		}
 	}
-	
 	/*메인메소드*/
 	public static void main(String[] args) {
 		int port = 5000;
