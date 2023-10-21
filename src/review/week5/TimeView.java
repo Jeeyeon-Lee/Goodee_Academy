@@ -28,5 +28,4 @@ public class TimeView {
 		TimeView tv = new TimeView();
 		tv.initDisplay();
 	}
-
 }

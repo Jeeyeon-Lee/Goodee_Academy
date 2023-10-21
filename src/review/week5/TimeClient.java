@@ -57,7 +57,6 @@ public class TimeClient extends Thread{
 			}
 		}
 	}
-	
 	/*메인메소드*/
 	public static void main(String[] args) {
 		TimeClient tc = new TimeClient();
