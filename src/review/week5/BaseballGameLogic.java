@@ -12,7 +12,6 @@ public class BaseballGameLogic {
 	public BaseballGameLogic(BaseballGameUI baseballGameUI) {
 		this.bbgUI = baseballGameUI;
 	}
-
 	/*정의메소드*/
 	//무엇에 대한 숫자세기? 유저가 입력한 숫자 3자리(String 형식)
 	public String account(String user) {
