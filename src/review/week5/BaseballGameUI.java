@@ -28,7 +28,6 @@ public class BaseballGameUI extends JFrame {
 	JMenuItem   jmi_new 	= new JMenuItem("새게임");
 	JMenuItem   jmi_dap 	= new JMenuItem("정답");
 	JMenuItem   jmi_clear 	= new JMenuItem("지우기");
-
 	JMenuItem   jmi_exit 	= new JMenuItem("나가기");
 	JMenu	 	jm_info 	= new JMenu("도움말");
 	JMenuItem   jmi_detail 	= new JMenuItem("야구숫자게임이란?");
@@ -117,5 +116,4 @@ public class BaseballGameUI extends JFrame {
 	public static void main(String[] args) {
 		BaseballGameUI bbgUI = new BaseballGameUI();
 	}
-
 }
