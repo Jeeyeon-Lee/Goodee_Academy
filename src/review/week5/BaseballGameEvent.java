@@ -13,7 +13,6 @@ public class BaseballGameEvent implements ActionListener{
 	public BaseballGameEvent(BaseballGameUI baseballGameUI) {
 		this.bbgUI = baseballGameUI;
 	}
-
 	/*정의메소드*/
 	//게임 나가기 
 	public void exit() {
