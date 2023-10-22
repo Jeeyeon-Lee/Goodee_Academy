@@ -3,6 +3,7 @@ package review.week5;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.ProcessHandle.Info;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -173,16 +175,59 @@ public class DeptManager3 extends JFrame implements ActionListener {
 			}
 		}
 		/*삭제*/
-		else if(){
+		else if(obj == jbtnDelete){
+			System.out.println("삭제 버튼 클릭");
+			int index = jt_dept.getSelectedRow();
+			if(index<0) {
+				JOptionPane.showMessageDialog(this, "삭제할 데이터를 선택하시오.","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+				return;
+			}
+			else {
+				System.out.println(index);
+				Map<String, Object> map = deptList.remove(index);
+				System.out.println(map+", "+map.get("DEPTNO")+", "+ map.get("DNAME")+", "+map.get("LOC"));
+				if(map != null) {
+					JOptionPane.showMessageDialog(this, "삭제 성공하였습니다.","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "삭제 실패하였습니다.","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+				}
+			}
+		}		
+		/*행추가*/
+		else if(obj == jbtnAdd){
+			System.out.println("행추가하기");
+			Vector<Object> v = new Vector<Object>();
+			dtm_dept.addRow(v);
+			
+		}		
+		/*행삭제*/
+		else if(obj == jbtnDel){
+			System.out.println("행삭제하기");
+			int index = jt_dept.getSelectedRow();
+			if(index<0) {
+				JOptionPane.showMessageDialog(this, "삭제 성공하"
+						+ ""
+						+ "였습니다.","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "삭제 실패하였습니다.","INFO",JOptionPane.INFORMATION_MESSAGE); //클래스, 메시지, 타이틀명, 아이콘
+			}
+				
+			}		
+		/**/
+		else if(obj == jbtnInsert){
+			System.out.println("입력버튼 클릭");
+			List<Object> addRow = new Vector<>();
+			dtm_dept.addRow((Vector<?>) addRow);
 		}		
 		/**/
-		else if(){
-		}		
-		/**/
-		else if(){
-		}		
-		/**/
-		else if(){
+		else if(obj == jbtnExit){
+			System.out.println("종료 버튼 클릭");
+		    int option = JOptionPane.showConfirmDialog(null, "프로그램을 종료하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+		    if (option == JOptionPane.YES_OPTION) {
+		    	System.exit(0);
+		    }
 		}		
 	}
 }
