@@ -12,44 +12,26 @@ class List6{
 		rank.add(1, "나초보");
 		rank.add(2, "나일등");
 	}
-	boolean rankUpdate(int index, String newValue) {
+	boolean rankDelete(String delValue) {
 		boolean isOk = false;
-		boolean isEqual = false;
-		for(int i=0;i<rank.size();i++) {
-			if(i == index) {
-				String oldValue = rank.get(index);
-				if(oldValue.equals(newValue)) {
-					isEqual = true; //새로 입력된 거랑 값이 같음.
-				}
-			}
-		}
-		if(isEqual) {
-			System.out.println("같은 이름을 입력하였습니다. 다시 확인해주세요.");
-			return false;
-		}else {
-			System.out.println("기존 이름과 다른 이름을 입력하였습니다. 수정을 진행합니다.");
-			String oldValue = rank.set(index, newValue);
-			isOk = true;
-		}
+		isOk = rank.remove(delValue);
 		return isOk;
 	}
 }
 public class ListMain6 {
 
 	public static void main(String[] args) {
+		System.out.println("삭제하고자 하는 이름을 입력하시오.");
+
 		List6 l5 = new List6();
 		Scanner sc = new Scanner(System.in);
 		String user = sc.nextLine();
-		StringTokenizer st = new StringTokenizer(user, "|");
-		String imsi = st.nextToken();
-		int index = Integer.parseInt(imsi);
-		String value = st.nextToken();
+		boolean isOk = l5.rankDelete(user);
 		l5.init();
-		boolean isOk = l5.rankUpdate(index, value);
-		if(isOk ) {
-			System.out.println("수정처리되었습니다.");
+		if(isOk) {
+			System.out.println("삭제처리되었습니다.");
 			System.out.println(l5.rank);
-		}else System.out.println("수정실패하였습니다.");
-	}
-
+		}
+		else System.out.println("삭제 실패하였습니다.");
+		}
 }

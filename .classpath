@@ -8,7 +8,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="src/extlib/gson-2.8.9.jar"/>
 	<classpathentry kind="lib" path="src/extlib/ojdbc6.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
