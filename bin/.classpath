@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="src/extlib/gson-2.8.9.jar"/>
-	<classpathentry kind="lib" path="src/extlib/ojdbc6.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>

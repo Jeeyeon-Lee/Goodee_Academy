@@ -1,7 +1,6 @@
 package achat.step1;
 
 public class A {
-<<<<<<< HEAD
 	/*선언부*/
 	int i = 1;
 	/*생성자*/
@@ -24,25 +23,5 @@ public class A {
 		A a1 = new A();
 		System.out.println(a1.i);
 		System.out.println(a1);
-=======
-	int i = 1;
-	public void methodB() {
-		System.out.println("methodB");
-	}
-	public void methodA() {
-		System.out.println("methodA");
-		System.out.println(this);
-		System.out.println(this.i);
-	}
-	public static void main(String[] args) {
-		A a1 = new A();
-		System.out.println(a1);
-		a1.methodA();
-		a1 = new A();
-		System.out.println(a1);
-		a1.i=2;
-		a1.methodA();
-		System.out.println("main");
->>>>>>> f22ff6d251a8738d0b3a1d87c95db76d1b1b82e2
 	}
 }
