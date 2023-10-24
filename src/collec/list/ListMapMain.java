@@ -18,34 +18,25 @@ public class ListMapMain {
     /* 값 추가 메소드 */
     public void addValue() {
         boolean isValidInput = false;
-        
         while (!isValidInput) {
             System.out.print("값을 입력하세요 (이름|나이|등급): ");
             String input = sc.nextLine();
-            
             StringTokenizer st = new StringTokenizer(input, "|");
-            
             try {
                 if (st.countTokens() != 3) {
                     throw new IllegalArgumentException("잘못된 형식의 입력입니다.");
                 }
-                
                 String name = st.nextToken().trim();
                 int age = Integer.parseInt(st.nextToken().trim());
                 int rank = Integer.parseInt(st.nextToken().trim());
-                
                 ListMapVO vo = new ListMapVO();
                 vo.setName(name);
                 vo.setAge(age);
                 vo.setRank(rank);
-                
                 Map<String, ListMapVO> map = new HashMap<>();
                 map.put("data", vo);
-                
                 lmList.add(map);
-                
                 System.out.println("값이 추가되었습니다.");
-                
                 isValidInput = true;
             } catch (NumberFormatException e) {
             	System.out.println("숫자 형식의 값이 아닙니다. 다시 입력해주세요.");
@@ -58,18 +49,14 @@ public class ListMapMain {
     /* 값 삭제 메소드 */
     public boolean removeValue() {
     	displayValues();
-    	
     	System.out.print("삭제할 값의 인덱스를 입력하세요: ");
     	int index = Integer.parseInt(sc.nextLine());
-    	
     	if (index >= 0 && index < lmList.size()) {
     		lmList.remove(index);
     		return true;
     	}
-    	
     	return false;
 	}
-    
     /* 값 조회 메소드 */
     public void displayValues() {
         for (int i = 0; i < lmList.size(); i++) {
@@ -78,7 +65,6 @@ public class ListMapMain {
             System.out.println(i + ": " + vo.getName() + " | " + vo.getAge() + " | " + vo.getRank());
         }
     }
-
     /* 메인메소드 */
 	public static void main(String[] args) {
 	    ListMapMain lm=new ListMapMain();

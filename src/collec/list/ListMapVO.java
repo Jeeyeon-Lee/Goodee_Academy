@@ -6,8 +6,6 @@ public class ListMapVO {
 	private int no  = 0;
 	private int rank  = 0;
 	
-	
-	
 	public String getName() {
 		return name;
 	}
