@@ -1,4 +1,4 @@
-package com_2.step;
+package com_2.step_2;
 //클래스 안에 여러가지의 변수를 담을 수 있다. 
 public class Dept {  //private을 실행할 수 있는 방법 실습
   private int deptno = 0;//부서번호, 전변

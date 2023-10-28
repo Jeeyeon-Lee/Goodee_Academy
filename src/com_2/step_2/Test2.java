@@ -1,4 +1,4 @@
-package com_2.step;
+package com_2.step_2;
 class P{
 	static int i = 1;
 	int j = 10;

@@ -1,4 +1,4 @@
-package com_2.step;
+package com_2.step_2;
 
 public class Variable3 {
 	public void accoutn(int i, int j) {
