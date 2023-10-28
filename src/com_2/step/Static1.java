@@ -7,7 +7,7 @@ public class Static1 {
 	public void methodA() {
 		System.out.println("methodA 호출");
 	}
-	public void methodB() {
+	public static void methodB() {
 		System.out.println("methodB 호출");
 	}
 	public static void main(String[] args) {
@@ -15,6 +15,8 @@ public class Static1 {
 		s.i = 30;
 		System.out.println(s.i);
 		//static은 인스턴스화 변수 없이도 호출 가능
+		s.methodA();
+		methodB();
 		System.out.println(j);
 		j=10;
 		System.out.println(s.j); 
