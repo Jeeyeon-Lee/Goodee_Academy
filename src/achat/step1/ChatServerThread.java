@@ -119,5 +119,4 @@ public class ChatServerThread extends Thread {
 			e.printStackTrace();//stack에 쌓여 있는 로그 히스토리를 출력함
 		}
 	}
-
 }
